@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="header::header"></div>
+<main>
+    <div class="container mt-5 mb-5 col-lg-6 col-md-8 mx-auto">
+        <h1>добавить нового клиента</h1>
+        <form action="/client/add" method="post">
+            <p>Фамилия
+            <input type="text" name="last_name" placeholder="введите фамилию" class="form-control" required></p>
+            <p>Имя
+            <input type="text" name="first_name" placeholder="введите имя" class="form-control" required></p>
+            <p>Отчество
+                <input type="text" name="middle_name" placeholder="введите отчество" class="form-control" required></p>
+            <p>Дата рождения
+            <input type="date" name="date_of_birth" placeholder="введите дату рождения" class="form-control"
+                   required></p>
+            <p>Cтатус
+            <input type="text" name="status" placeholder="выберете статус" class="form-control"
+                   list="doc_list" required maxlength="10">
+                <datalist id="doc_list">
+                    <option label="Клиет">Client</option>
+                    <option label="Сотрудник">Employee</option>
+                </datalist>
+            </p><br>
+            <button type="submit" class=" btn btn-large btn-success">Добавить</button>
+        </form>
+    </div>
+</main>
+<div th:insert="footer::footer"></div>
+</body>
+</html>

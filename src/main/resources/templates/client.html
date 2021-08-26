@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="header::header"></div>
+<main>
+    <div class="container mt-5 col-lg-6 col-md-8 mx-auto">
+        <div>
+        <form class="d-flex" action="/search">
+            <a href="/client/add" th:href="@{/client/add}" class="btn btn-large btn-success ml-2 mr-2 my-2 me-4">Добавить</a>
+            <input class="form-control ml-2 mr-2 my-2 me-2" type="search" placeholder="Search" aria-label="Search" name="key">
+            <button class="btn btn-outline-success ml-2 mr-2 my-2 me-2" type="submit">Найти</button>
+        </form>
+            <h1 th:text="${title}"/></div>
+        <div th:each="el : ${clients}" class="alert alert-info mt-5">
+            <h3 th:text="${el.lastName} + ' '+ ${el.firstName} + ' '+ ${el.middleName}"/>
+            <h5 th:text="'Дата рождения - ' + ${el.dateOfBirth}"/>
+            <form th:action="'/client/' + ${el.id} +'/remove'" method="post">
+<!--                <a th:href="@{/arrest/} + ${el.client_id}" class="btn btn-info  ml-2 mr-2" th:text="'Аресты - ' + ${el.arrestList}"/>-->
+                <a th:href="@{/client/} + ${el.id} +'/edit'" class="btn btn-warning  ml-2 mr-2">Изменить</a>
+                <button type="submit" class="btn btn-outline-secondary ml-2 mr-2">Удалить</button>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:insert="footer::footer"></div>
+</body>
+</html>
