@@ -3,5 +3,8 @@ package com.sber.arm.repository;
 import com.sber.arm.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends JpaRepository<Account,Long> {
+import java.util.List;
+
+public interface AccountRepository extends JpaRepository<Account,Integer> {
+    public List<Account> findByOwner(int owner);
 }

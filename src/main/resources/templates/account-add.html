@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="header::header"></div>
+
+<main>
+    <div class="container mt-5 mb-5 col-lg-6 col-md-8 mx-auto">
+        <h1 th:text="${title}"/>
+        <div th:each="el : ${account}">
+            <form method="post">
+                <h1 th:text="${el.number}"></h1>
+                <input type = "hidden" th:value="${el.number}" name="number"/>
+                <h2 th:text="'Открыт: ' + ${el.openingDate}"></h2>
+                <input type = "hidden" th:value="${el.openingDate}" name="opening_date"/>
+                <input type = "hidden" th:value="${el.owner}" name="owner"/>
+
+                <p>Баланс
+                    <input type="number" th:value="${el.balance}" name="balance"  placeholder="Баланс"
+                           class="form-control" required maxlength="12"></p><br>
+                <button type="submit" class="btn btn-large btn-success">Создать</button>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:insert="footer::footer"></div>
+</body>
+</html>
