@@ -9,21 +9,46 @@
 <div th:insert="header::header"></div>
 <main>
     <div class="container mt-5 col-lg-6 col-md-8 mx-auto">
+        <h1>
+            <p th:text="${title}" />
+        </h1>
         <div>
-        <form class="d-flex" action="/search">
-            <a href="/client/add" th:href="@{/client/add}" class="btn btn-large btn-success ml-2 mr-2 my-2 me-4">Добавить</a>
-            <input class="form-control ml-2 mr-2 my-2 me-2" type="search" placeholder="Search" aria-label="Search" name="key">
-            <button class="btn btn-outline-success ml-2 mr-2 my-2 me-2" type="submit">Найти</button>
-        </form>
-            <h1 th:text="${title}"/></div>
-        <div th:each="el : ${clients}" class="alert alert-info mt-5">
-            <h3 th:text="${el.lastName} + ' '+ ${el.firstName} + ' '+ ${el.middleName}"/>
-            <h5 th:text="'Дата рождения - ' + ${el.dateOfBirth}"/>
-            <form th:action="'/client/' + ${el.id} +'/remove'" method="post">
-<!--                <a th:href="@{/arrest/} + ${el.client_id}" class="btn btn-info  ml-2 mr-2" th:text="'Аресты - ' + ${el.arrestList}"/>-->
-                <a th:href="@{/client/} + ${el.id} +'/edit'" class="btn btn-warning  ml-2 mr-2">Изменить</a>
-                <button type="submit" class="btn btn-outline-secondary ml-2 mr-2">Удалить</button>
-            </form>
+            <div th:each="el : ${client}">
+                <h1 th:text=" ${el.lastName}"/>
+                   <h2 th:text="${el.firstName} + ' ' +${el.middleName}"/>
+                <h3 th:text="'Дата рождения: ' + ${el.dateOfBirth}"></h3>
+            </div>
+        </div>
+        <p th:if="${id}">
+            <a href="/account/add" th:href="@{/account/add/} + ${id}" class="btn btn-large btn-success">Открыть новый счет</a>
+        </p>
+        <div class="content">
+            <h1>Счета клиента:</h1>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Номер счета</td>
+                    <td>Дата открытия</td>
+                    <td>Баланс</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${accounts.empty}">
+                    <td colspan="4">Нет арестов</td>
+                </tr>
+                <tr th:each="el : ${accounts}">
+                    <td th:text="${el.number}"/>
+                    <td th:text="${el.openingDate}"/>
+                    <td th:text="${el.balance}"/>
+                    <td th:if="${id}" >
+                        <a th:href="@{/account/} + ${el.id}" class="btn btn-warning" th:text="Подробнее"/>
+<!--                        <form th:action="'/arrest/remove/' + ${el.arrest_id}" method="post">
+                            <button type="submit" class="btn btn-warning">Удалить</button>
+                        </form>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </main>

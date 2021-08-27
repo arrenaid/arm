@@ -2,7 +2,8 @@
 
 CREATE TABLE account (
     account_id      INT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    namber          INT[]                       NOT NULL,
+    number_account  VARCHAR(25)                 NOT NULL,
     opening_date    DATE                        NOT NULL,
-    balance         FLOAT                        NOT NULL
+    balance         FLOAT                       NOT NULL,
+    owner           INT                         NOT NULL
 );
