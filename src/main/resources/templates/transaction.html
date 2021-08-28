@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="header::header"></div>
+
+<main>
+    <div class="container mt-5 mb-5 col-lg-6 col-md-8 mx-auto">
+        <h1 th:text="${title}"/>
+        <div th:each="el : ${account}">
+            <form method="post">
+                <h2 th:text="'Счет списания: ' + ${el.number}"></h2>
+
+                <input type = "hidden" th:value="${el.number}" name="debit"/>
+
+                <p>Сумма перевода
+                    <input type="number"  name="amount"  placeholder="Сумма"
+                           class="form-control" required minlength="0" maxlength="12" min="1" max="${el.balance}"></p><br>
+                <p>Счет зачисления:
+                <input type="text"  name="credit"  placeholder="Счет зачисления"
+                       class="form-control" required minlength="25" maxlength="25"></p><br>
+                <button type="submit" class="btn btn-large btn-success">Выполнить перевод</button>
+            </form>
+        </div>
+    </div>
+</main>
+<div th:insert="footer::footer"></div>
+</body>
+</html>

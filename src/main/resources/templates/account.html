@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="header::header"></div>
+
+<main>
+    <div class="container mt-5 mb-5 col-lg-6 col-md-8 mx-auto">
+        <h1 th:text="${title}"/>
+        <div th:each="el : ${account}">
+            <h1 th:text="${el.number}"></h1>
+            <h2 th:text="'Баланс: ' + ${el.balance}"></h2>
+            <h3 th:text="'Открыт: ' + ${el.openingDate}"></h3>
+            <div th:each="el : ${owner}">
+                <a th:href="'/client/' + ${el.id}" class="btn btn-custom btn-info waves-effect waves-light m-t-20">открыть стараницу клиента</a>
+                <h2 th:text=" ${el.lastName}"/>
+                <h3 th:text="${el.firstName} + ' ' +${el.middleName}"/>
+            </div>
+            <p th:if="${id}">
+                <a th:href="@{/transaction/} + ${id}" class="btn btn-large btn-success">Сделать перевод</a>
+            </p>
+            <div class="content">
+                <h1>Зачисления:</h1>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td>Номер счета зачисления</td>
+                        <td>Дата перевода</td>
+                        <td>Сумма перевода</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${credit.empty}">
+                        <td colspan="4">Нет переводов</td>
+                    </tr>
+                    <tr th:each="el : ${credit}">
+                        <td th:text="${el.creditAccount}"/>
+                        <td th:text="${el.transactionTime}"/>
+                        <td th:text="${el.amount}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content">
+                <h1>Переводы клиента:</h1>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td>Номер счета списания</td>
+                        <td>Дата перевода</td>
+                        <td>Сумма перевода</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${debit.empty}">
+                        <td colspan="4">Нет переводов</td>
+                    </tr>
+                    <tr th:each="el : ${debit}">
+                        <td th:text="${el.debitAccount}"/>
+                        <td th:text="${el.transactionTime}"/>
+                        <td th:text="${el.amount}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<div th:insert="footer::footer"></div>
+</body>
+</html>
