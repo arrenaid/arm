@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -22,9 +23,27 @@ public class Transaction {
     @Column
     private float amount;
     @Column(name = "debit_account")
-    private int [] debitAccount;
+    private String debitAccount;
     @Column(name = "credit_account")
-    private int [] creditAccount;
+    private String creditAccount;
     @Column(name = "transaction_time")
-    private Date transactionTime;
+    private LocalDateTime transactionTime;
+
+    public Transaction(float amount, String debitAccount, String creditAccount) {
+        this.amount = amount;
+        this.debitAccount = debitAccount;
+        this.creditAccount = creditAccount;
+        this.transactionTime = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", debitAccount='" + debitAccount + '\'' +
+                ", creditAccount='" + creditAccount + '\'' +
+                ", transactionTime=" + transactionTime +
+                '}';
+    }
 }

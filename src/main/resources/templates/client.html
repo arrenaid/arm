@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
                 <tr th:if="${accounts.empty}">
-                    <td colspan="4">Нет арестов</td>
+                    <td colspan="4">Счетов не найдено</td>
                 </tr>
                 <tr th:each="el : ${accounts}">
                     <td th:text="${el.number}"/>
