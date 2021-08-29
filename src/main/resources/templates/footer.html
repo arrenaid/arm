@@ -4,6 +4,8 @@
             <p class="float-end mb-1">
                 <a href="#">Back to top</a>
             </p>
+            <p th:inline="text">Вы вошли как: [[${#httpServletRequest.remoteUser}]]
+            </p>
             <p class="mb-1">Album example is © Bootstrap, but please download and customize it for yourself!</p>
             <p class="mb-0">END <a href="/">Visit the homepage</a>.</p>
         </div>
