@@ -11,14 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class ClientController {
@@ -56,6 +51,20 @@ public class ClientController {
         clientRepository.save(client);
         ArmApplication.logger.log(Level.INFO, " new client: " + client);
         return "redirect:/";
+    }
+    @RequestMapping("/search")
+    public String search(@RequestParam(value = "key", required = false) String key,Model model){
+        List<Client> clients = clientRepository.findByLastNameContainingIgnoreCase(key);
+        List<Client> first = clientRepository.findByFirstNameContainingIgnoreCase(key);
+        List<Client> middle = clientRepository.findByMiddleNameContainingIgnoreCase(key);
+        Set<Client> set = new HashSet<>(clients);
+        set.addAll(first);
+        set.addAll(middle);
+        clients.clear();
+        clients.addAll(set);
+        model.addAttribute("clients", clients);
+        model.addAttribute("title","Результаты поиска клиентов:");
+        return "home";
     }
 
 
