@@ -54,14 +54,14 @@ public class ClientController {
     }
     @RequestMapping("/search")
     public String search(@RequestParam(value = "key", required = false) String key,Model model){
-        List<Client> clients = clientRepository.findByLastNameContainingIgnoreCase(key);
-        List<Client> first = clientRepository.findByFirstNameContainingIgnoreCase(key);
-        List<Client> middle = clientRepository.findByMiddleNameContainingIgnoreCase(key);
-        Set<Client> set = new HashSet<>(clients);
-        set.addAll(first);
-        set.addAll(middle);
-        clients.clear();
-        clients.addAll(set);
+        String[] splitKey = key.split(" ");
+        Set<Client> set = new HashSet<>();
+        for(String split: splitKey){
+            set.addAll(clientRepository.findByLastNameContainingIgnoreCase(split));
+            set.addAll(clientRepository.findByFirstNameContainingIgnoreCase(key));
+            set.addAll(clientRepository.findByMiddleNameContainingIgnoreCase(key));
+        }
+        List<Client> clients = new LinkedList<>(set);
         model.addAttribute("clients", clients);
         model.addAttribute("title","Результаты поиска клиентов:");
         return "home";
