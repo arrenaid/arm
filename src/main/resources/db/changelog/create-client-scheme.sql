@@ -5,6 +5,5 @@ CREATE TABLE client (
     last_name       VARCHAR(100)                 NOT NULL,
     first_name      VARCHAR(100)                 NOT NULL,
     middle_name     VARCHAR(100)                 NOT NULL,
-    date_of_birth   DATE                         NOT NULL,
-    status          VARCHAR(15)
+    date_of_birth   DATE                         NOT NULL
 );
