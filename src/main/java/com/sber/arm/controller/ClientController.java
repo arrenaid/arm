@@ -3,7 +3,6 @@ package com.sber.arm.controller;
 import com.sber.arm.ArmApplication;
 import com.sber.arm.entity.Account;
 import com.sber.arm.entity.Client;
-import com.sber.arm.entity.Role;
 import com.sber.arm.repository.AccountRepository;
 import com.sber.arm.repository.ClientRepository;
 import org.apache.log4j.Level;
@@ -46,8 +45,8 @@ public class ClientController {
     @PostMapping("/client/add")
     public String clientAdd(@RequestParam String last_name, @RequestParam String first_name, @RequestParam String middle_name,
                             @RequestParam("date_of_birth") @DateTimeFormat(pattern="yyyy-MM-dd") Date date_of_birth,
-                            @RequestParam String status, Model model){
-        Client client = new Client(last_name,first_name, middle_name, date_of_birth, Role.Client.equals(status)? Role.Client: Role.Employee );
+                            Model model){
+        Client client = new Client(last_name,first_name, middle_name, date_of_birth );
         clientRepository.save(client);
         ArmApplication.logger.log(Level.INFO, " new client: " + client);
         return "redirect:/";

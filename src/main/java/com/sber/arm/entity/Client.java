@@ -26,15 +26,12 @@ public class Client {
     private String middleName;
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
-    @Column
-    private Role status;
 
-    public Client(String lastName, String firstName, String middleName, Date dateOfBirth, Role status) {
+    public Client(String lastName, String firstName, String middleName, Date dateOfBirth) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.middleName = middleName;
         this.dateOfBirth = dateOfBirth;
-        this.status = status;
     }
 
     @Override
@@ -45,7 +42,6 @@ public class Client {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", status=" + status +
                 '}';
     }
 }
